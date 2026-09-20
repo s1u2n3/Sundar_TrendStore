@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Vennilavanguvi/Trend.git'
+                    url: 'https://github.com/s1u2n3/Sundar_TrendStore.git'
             }
         }
 
