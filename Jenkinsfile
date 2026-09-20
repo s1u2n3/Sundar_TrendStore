@@ -4,6 +4,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'sund123/trend-store-app'
         DOCKER_CREDENTIALS = 'dockerhub-creds'
+        AWS_REGION = 'ap-south-1'
+        EKS_CLUSTER = 'trend-eks'
     }
 
     stages {
@@ -38,6 +40,21 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 sh 'docker push ${DOCKER_IMAGE}:latest'
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                sh '''
+                    aws eks update-kubeconfig \
+                      --region ${AWS_REGION} \
+                      --name ${EKS_CLUSTER}
+
+                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f k8s/service.yaml
+
+                    kubectl rollout status deployment/trend-app --timeout=180s
+                '''
             }
         }
     }
