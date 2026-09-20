@@ -508,7 +508,7 @@ resource "aws_eks_node_group" "trend" {
   # running Kubernetes workloads than t3.micro.
   # ----------------------------------------------------------
 
-  instance_types = ["t3.micro"]
+  instance_types = ["t3.small"]
 
   # ----------------------------------------------------------
   # NODE SCALING
