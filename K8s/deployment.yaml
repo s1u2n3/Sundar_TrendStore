@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trend-app
+  labels:
+    app: trend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trend-app
+  template:
+    metadata:
+      labels:
+        app: trend-app
+    spec:
+      containers:
+        - name: trend-app
+          image: sund123/trend-store-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
