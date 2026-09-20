@@ -50,8 +50,8 @@ pipeline {
                       --region ${AWS_REGION} \
                       --name ${EKS_CLUSTER}
 
-                    kubectl apply -f k8s/deployment.yaml
-                    kubectl apply -f k8s/service.yaml
+                    kubectl apply -f K8s/deployment.yaml
+                    kubectl apply -f K8s/service.yaml
 
                     kubectl rollout status deployment/trend-app --timeout=180s
                 '''
